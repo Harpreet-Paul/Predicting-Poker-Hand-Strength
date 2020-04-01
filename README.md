@@ -17,3 +17,43 @@ Data was obtained from the UofAlberta IRC Poker Database, which contained game l
 ### Results
 
 For all player groups, the Logistic Regression model proved the most accurate in predicting pocket hand strength, with accuracies in the range of 30-36% depending on the player group. 
+
+## Data Processing
+
+This is what our original dataframe looks like:
+
+Each row represents a hand played by a given player in a given game. The important columns are interpreted as follows:
+
+#### 'preflop', 'flop_x', 'turn_x' and 'river_x'
+
+The string of characters underneath these columns represent betting actions by the player in the different stages of betting. The betting action is encoded with a single character for each action:
+
+|  Character   |    Action    |
+| ------------ | ------------ |
+| - | no action; player is no longer contesting pot |
+| B | blind bet |
+| f | fold |
+| k | check |
+| b | bet |
+| c | call |
+| r | raise |
+| A | all-in |
+| Q | quits game |
+| K | kicked from game |
+
+
+
+
+
+
+
+
+
+
+
+If the player played until the showodown without folding, then their two pocket cards are shown. 
+
+
+
+
+
