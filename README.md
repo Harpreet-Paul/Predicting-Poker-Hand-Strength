@@ -63,6 +63,14 @@ The first set of features we generate are counts of the number of times each bet
 
 We visualized the spread of each of these features to see if there was enough variance for the features to have predictive power, then we plotted the features against hand strengths to test our intuitions about the underlying relationships. 
 
+The next set of features we generated were the amounts bet by a player in each stage of betting. Our assumption was that higher bet amounts should be indicative of a stronger pocket and lower bet amounts should be indicative of a weaker pocket. 
+
+As with the betting actions, we visualized the spread of the betting amounts and then plotted betting amounts against hand strengths to test our assumption.
+
+We suspected that betting amounts alone may not hold a strong relationship to hand strength as players would naturally bet in lower amounts as their bankroll dwindles (and in higher amounts when their bankroll was high), regardless of their hand strength. Thus, we made an additonal set of features that took the ratio between the amount bet in each stage of betting to the player's bankroll at the beginning of a game. 
+
+The last set of features we generated were ratios of the amount a player bet in a stage of betting to the pot size at the beginning of that stage of betting. Our intuiton was that a given bet amount relative to a smaller pot is more indicative of a strong pocket than the same bet amount relative to a larger pot. 
+
 
 We assume that amateur players typically do not play hands close in hand strength value differently enough such that we could expect to accurately discriminate between say a strength 5 hand and a strength 6 hand on the basis of betting actions. To test this assumption, we look at how some of our features vary between adjacent hand strength values in the lower, middle and upper range of hand strength. 
 
