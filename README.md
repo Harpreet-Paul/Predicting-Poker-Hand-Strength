@@ -67,7 +67,7 @@ We visualized the spread of each of these features to see if there was enough va
 
 We see that the preflop bet count feature has 0 variance and the preflop, flop, turn and river all-in count features have very little variance. The preflop, flop, turn and river raise count and call count features have the most variance. 
 
-
+From the spread of the preflop, flop, turn and river raise count features, we can see that there are many high leverage and potential outlier points that could impact the fit of the logistic regression model. We note this for now and will return to this issue when we diagnose our logistic regression fit by using influence plots. 
 
 The next set of features we generated were the amounts bet by a player in each stage of betting. Our assumption was that higher bet amounts should be indicative of a stronger pocket and lower bet amounts should be indicative of a weaker pocket. 
 
