@@ -61,7 +61,7 @@ In order to generate the target variable, we take the 'pocket' column and apply 
 
 From the plot we can see that a hand strength of 5 is most common and that most hand strengths fall in range between 2 and 10. The mean, median and standard deviation for the hand strengths are: 6.11, 6.0 and 3.62 respectively. 
 
-The first set of features we generate are counts of the number of times each betting action (call, check, raise, bet and all-in) was performed in each of the stages of betting. Our assumption is that aggresive moves, like raising, betting and going all-in should be an indication that a player has a strong pocket and passive moves like checking should be an indication that a player has a weak poker. Calling is somewhere in the middle on the passive-aggressive spectrum of betting actions and thus we expect that it should be an indication of neither a particularily strong nor a particularily weak pocket. 
+The first set of features we generate are counts of the number of times each betting action (call, check, raise, bet and all-in) was performed in each of the stages of betting. Our assumption is that aggresive moves, like raising, betting and going all-in should be an indication that a player has a strong pocket and passive moves like checking should be an indication that a player has a weak pocket. Calling is somewhere in the middle on the passive-aggressive spectrum of betting actions and thus we expect that it should be an indication of neither a particularily strong nor a particularily weak pocket. 
 
 We visualized the spread of each of these features to see if there was enough variance for the features to have predictive power, then we plotted the features against hand strengths to test our intuitions about the underlying relationships between them.
 
@@ -73,15 +73,17 @@ In plotting the action count features against hand strength, we see the followin
 
 There is a strong negative relationship between checking in the preflop and pocket hand strength. There is a moderate negative relationship between checking in the flop, turn and river stages and pocket hand strength.
 
-There is a moderately negative relationship between calling in the preflop and pocket hand strength. There is a weakly positive relationship between calling in the flop and hand strength. There is a moderately positive relationship between calling in the turn and river stages and hand strength. 
+There is a moderately negative relationship between calling in the preflop and pocket hand strength. There is a weakly positive relationship between calling in the flop and hand strength. There is a moderately positive relationship between calling in the turn and river stages and hand strength. Other than in the case of calling in the flop, it seems that a moderate-strong relationship between calling and hand strength does exist, contrary to our assumptions. 
 
-There is a strongly negative relationship between going all-in in the preflop and hand strength, and a moderately negative relationship between going all-in in any other stage and hand strength. 
+There is a strongly negative relationship between going all-in in the preflop and hand strength, and a moderately negative relationship between going all-in in any other stage and hand strength. This relationship runs completely counter to our assumptions. Because there is a very, very small sample size of hands where a player went all-in, and intuitvely players would only go all-in when they possess stronger hands, it is likely that this relationship does not reflect the true relationhsip that exists between the variables. The all-in count features will be removed from the analysis as it seems like they are simply introducing noise into the model. 
 
 There is a moderately positive relationship between betting in the flop, turn and river stages and hand strength.
 
+For now, we plot raise counts in the range of 0-5 raises against hand strength. In the preflop stage, there is a strong positive relationship between raising and hand strength at first, and then there is a moderately negative relationship. In the river stage, there is a weak positive relationship initially, followed by a weak negative relationship. In the flop and turn stages, there is a moderately positive relationship between raise count and hand strength at first, followed by an inconsistent relationship thereafter whereby hand strength fluctuates up and down as the raise count continues to increase. 
+
 The next set of features we generated were the amounts bet by a player in each stage of betting. Our assumption was that higher bet amounts should be indicative of a stronger pocket and lower bet amounts should be indicative of a weaker pocket. 
 
-As with the betting actions, we visualized the spread of the betting amounts and then plotted betting amounts against hand strengths to test our assumption.
+As with the betting actions, we visualized the spread of the betting amounts and then plotted betting amounts against hand strengths to test our assumptions.
 
 We suspected that betting amounts alone may not hold a strong relationship to hand strength as players would naturally bet in lower amounts as their bankroll dwindles (and in higher amounts when their bankroll was high), regardless of their hand strength. Thus, we made an additonal set of features that took the ratio between the amount bet in each stage of betting to the player's bankroll at the beginning of a game. 
 
