@@ -61,6 +61,14 @@ In order to generate the target variable, we take the 'pocket' column and apply 
 
 From the plot we can see that a hand strength of 5 is most common and that most hand strengths fall in range between 2 and 10. The mean, median and standard deviation for the hand strengths are: 6.11, 6.0 and 3.62 respectively. 
 
+All of the total betting action count features show a fair bit of spread. Each has roughly the same spread, with the total call count feature showing the most spread and the total bet count feature showing the least. Calling appears to be the most common betting action. There appear to be a number of very high leverage points for the total raise count feature. We will address these later when diagnosing our logistc regression model fit. 
+
+There is a negative linear relationship between a player's total check count and hand strength. There is no clear relationship between total call count and hand strength, but a call count of 0 seems to imply a little bit above average of a handstrength and calling more than 10 times seems to imply moderately below average hand strength. There is a positive linear relationship between total bet count and hand strength. 
+
+In restricting our plot to only show total raise counts in the range of 0 and 12 raises, we see a very non-linear relationship between hand strength and the total raise count. Up until about 3 total raises, there is a positive and roughly linear relationship between hand strength and total raise count. After 3 total raises and until 8 raises, there is a negative and roughly linear relationship between hand strength and total raise count. Ultimately though, a total raise count of 1 or higher seems to imply an above average hand strength. 
+
+
+
 The first set of features we generate are counts of the number of times each betting action (call, check, raise, bet and all-in) was performed in each of the stages of betting. Our assumption is that aggresive moves, like raising, betting and going all-in should be an indication that a player has a strong pocket and passive moves like checking should be an indication that a player has a weak pocket. Calling is somewhere in the middle on the passive-aggressive spectrum of betting actions and thus we expect that it should be an indication of neither a particularily strong nor a particularily weak pocket. 
 
 We visualized the spread of each of these features to see if there was enough variance for the features to have predictive power, then we plotted the features against hand strengths to test our intuitions about the underlying relationships between them.
