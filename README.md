@@ -8,7 +8,7 @@ Texas Hold’em is a popular variant of Poker. Between 2-8 players sit at a tabl
 
 ### Objective
 
-The objective of this project was to predict the strength of a player’s two pocket cards, as determined by a hand strength formula known as the “Chen Formula”. Knowing the strength of an opponent’s pocket cards allows a player to make optimal betting decisions in a round. 
+The objective of this project was to predict the strength of a player’s two pocket cards, as determined by a hand strength formula known as the “Chen Formula”. 
 
 ### Methods
 
@@ -57,25 +57,27 @@ The first number is the number of players remaining in the game at the start of 
 
 ### Generating Features and the Target Variable
 
-In order to generate the target variable, we take the 'pocket' column and apply the Chen Formula, which maps each hand to a hand strength value between -2 and 20. The bar plot shows the frequencies of each hand strength value.
+#### Target Variable
 
-From the plot we can see that a hand strength of 5 is most common and that most hand strengths fall in range between 2 and 10. The mean, median and standard deviation for the hand strengths are: 6.11, 6.0 and 3.62 respectively.
+In order to generate the target variable, we took the 'pocket' column and applied the Chen Formula, which maps each hand to a hand strength value between -2 and 20. The bar plot shows the frequencies of each hand strength value.
+
+From the plot we can see that a hand strength of 5 is most common and that most hand strengths fall in the range between 2 and 10. The mean, median and standard deviation for the hand strengths are 6.11, 6.0 and 3.62 respectively.
+
+#### Features
+
+For each feature, we visualized it's spread and then plotted hand strength against that feature to see if there was any relationship between the two. All of our features were discrete variables, so we plotted average hand strength of all hands corresponding to a particular value of the feature against possible values of the feature. 
+
+The first set of features we generated were counts of the number of times each betting action (call, check, raise and bet) was performed in each of the stages of betting. 
+
+The bet and check count features in all stages of betting follow a bernoulli distribution. A check count of 0 in the preflop is far more common than a check count of 1, but the proportion of hands with a check count of 1 steadily increases until the river, where it is roughly half. In all stages of betting, the number of hands with bet counts of 0 are about double the number of hands with bet counts of 1. 
+
+The raise and call count features in all stages of betting roughly follow a poisson distribution. From the preflop to the river, the spreads of the call count features decrease and the means decreases towards 0. From the spread of the preflop, flop, turn and river raise count features, we see that there are many high leverage points that could impact the fit of the logistic regression model. We will address these points when diagnosing the logistic regression model fit. Similar to the call count features, the spreads of the raise count features decrease and the means decreases towards zero from the preflop to the river.
 
 All of the total betting action count features roughly follow a poisson distribution.  Each feature has roughly the same spread, with the total call count feature showing the most spread and the total bet count feature showing the least. Calling appears to be the most common betting action. There appear to be a number of very high leverage points for the total raise count feature. We will address these later when diagnosing our logistc regression model fit. 
 
 There is a negative linear relationship between a player's total check count and hand strength. There is no clear relationship between total call count and hand strength, but a call count of 0 seems to imply a little bit above average of a handstrength and calling more than 10 times seems to imply moderately below average hand strength. There is a positive linear relationship between total bet count and hand strength. 
 
 In restricting our plot to only show total raise counts in the range of 0 and 12 raises, we see a very non-linear relationship between hand strength and the total raise count. Up until about 3 total raises, there is a positive and roughly linear relationship between hand strength and total raise count. After 3 total raises and until 8 raises, there is a negative and roughly linear relationship between hand strength and total raise count. Ultimately though, a total raise count of 1 or higher seems to imply an above average hand strength. 
-
-
-
-The first set of features we generate are counts of the number of times each betting action (call, check, raise, bet and all-in) was performed in each of the stages of betting. Our assumption is that aggresive moves, like raising, betting and going all-in should be an indication that a player has a strong pocket and passive moves like checking should be an indication that a player has a weak pocket. Calling is somewhere in the middle on the passive-aggressive spectrum of betting actions and thus we expect that it should be an indication of neither a particularily strong nor a particularily weak pocket. 
-
-We visualized the spread of each of these features to see if there was enough variance for the features to have predictive power, then we plotted the features against hand strengths to test our intuitions about the underlying relationships between them.
-
-The bet and check count features in all stages of betting follow a bernoulli distribution, while the raise and call count features in all stages follow a roughly poisson distribution. A check count of 0 in the preflop is far more common than a check count of 1, but the proportion of check counts equaling 1 steadily increases until the river, where it is roughly half. In all stages of betting, the number of hands with bet counts of 0 are about double the number of hands with bet counts of 1. From the preflop to the river, the spread of call count feature decreases and the mean decreases towards 0. 
-
-From the spread of the preflop, flop, turn and river raise count features, we can see that there are many high leverage and potential outlier points that could impact the fit of the logistic regression model. We note this for now and will return to this issue when we diagnose our logistic regression fit by using influence plots. Across the stages of betting, the raise count feature follows a similar trend as the call count feature in that the spread of the feature decreases and the mean decreases towards zero. 
 
 In plotting the action count features against hand strength, we see the following relationships:
 
