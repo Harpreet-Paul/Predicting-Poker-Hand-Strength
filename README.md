@@ -101,37 +101,38 @@ There is a strong negative linear relationship between a player's total check co
 
 There is no clear relationship between the total raise count feature and average hand strength when we plot the entire range of total raise count values. In restricting our plot to only show total raise counts in the range of 0 and 12 raises, we see a very non-linear relationship between average hand strength and the total raise count. Up until about 3 total raises, there is a positive and roughly linear relationship between hand strength and total raise count. After 3 total raises and until 8 raises, there is a negative and roughly linear relationship between average hand strength and total raise count. Ultimately though, a total raise count of 1 or higher seems to imply an above average hand strength. 
 
-In plotting the action count features against hand strength, we see the following relationships:
+##### Total Bet
 
-There is a strong negative relationship between checking in the preflop and pocket hand strength. There is a moderate negative relationship between checking in the flop, turn and river stages and pocket hand strength.
+This feature is the total amount that a player bet across all 4 stages of betting. 
 
-There is a moderately negative relationship between calling in the preflop and pocket hand strength. There is no relationship between calling in the flop and hand strength. There is a moderately positive relationship between calling in the turn and river stages and hand strength. It seems that a moderate relationship between calling and hand strength does exist, contrary to our assumption.
+###### Spread
 
-There is a strongly negative relationship between going all-in in the preflop and hand strength, and a moderately negative relationship between going all-in in any other stage and hand strength. This relationship runs completely counter to our assumptions. Because there is a very, very small sample size of hands where a player went all-in, and intuitvely players would only go all-in when they possess stronger hands, it is likely that this relationship does not reflect the true relationhsip that exists between the variables. The all-in count features will be removed from the analysis as it seems like they are simply introducing noise into the model. 
+We see a number of very high leverage points in plotting the spread of the total bet amounts. These will be addressed later when diagnosing our logistic regression model fit. Nearly all the total bets amounts are below 250 and an overwhelming majority of them are lower than 120. To get a view of the spread without the high leverage points, we plot the distribution of total bet amounts for bet amounts lower than 250. We see that total bets in the rage of 60 to 75 are most common, but overall there is a lot of spread in the distribution of the total bet amounts -- the standard deviation of total bet amounts is more than 40. 
 
-There is a moderately positive relationship between betting in the flop and turn and hand strength. There is a weakly positive relationship between betting in the river and hand strength. 
+###### Relationship to Hand Strength
 
-For the sake of visualization, we plot raise counts in the range of 0-5 raises against hand strength. In the preflop stage, there is a strong positive relationship between raising or not raising and hand strength, but no clear relationship between hand strength and additional raises. In the flop, there is a moderately positive relationship between raising or not raising and hand strength, but no clear relationship between hand strength and additional raises. In the turn, there is a weakly positive relationship between raising or not raising and hand strength, but no clear relationship between hand strength and additional raises. In the river stage, there is no relationship between number of raises and hand strength. 
+In plotting the total bet amount against average hand strength, we see a non-linear relationship emerge. Up until a total bet amount of approximately 120 - - the range within which nearly all the total bet amounts lie -- we see a linear and positive relationship between total bet amount and average hand strength. After a total bet of 120, average hand strength seems to level off and doesn't change with the total bet amount.
 
-The next set of features we generated were the amounts bet by a player in each stage of betting. Our assumption was that higher bet amounts should be indicative of a stronger pocket and lower bet amounts should be indicative of a weaker pocket. 
+##### Preflop, Flop, Turn and River -- Bet Amounts
 
-Again, we see a number of very high leverage points in plotting the spread of the total bet amounts. Nearly all the total bets amounts are below 250 and an overwhelming majority of them are lower than 120. To get a view of the spread without the high leverage points, we plot the distribution of total bet amounts for bet amounts lower than 250. We see that total bets in the rage of 60 to 75 are most common, but overall there is a lot of spread in the distribution of the total bet amounts -- the standard deviation of total bet amounts is more than 40. 
+These features were the amounts bet by a player in each particular stage of betting. 
 
-In plotting the total bet amount against hand strength, we see a non-linear relationship emerge. Up until a total bet amount of approximately 120 - - the range within which nearly all the total bet amounts lie -- we see a linear and positive relationship between total bet amount and hand strength. After a total bet of 120, hand strength seems to level off and doesn't change with the total bet amount. 
+###### Spread
 
-As with the betting actions, we visualized the spread of the betting amounts and then plotted betting amounts against hand strengths to test our assumptions.
+In plotting the spread of the bet amount features we see that there are many high leverage points in the data. These will be addressed when diagnosing our logistic regression model fit. Nearly all the preflop and flop bets are below a bet amount of 60 and nearly all the turn and river bets are below a bet amount of 100. To get a view of the spread of the bet amounts by betting stage without the high leverage points, we restrict our distribution plots to  bets in the range of 0-70 for the preflop and flop bet amounts, and 0-100 for the turn and river bet amounts. 
 
-Similar to the case with raise count features, in plotting the spread of the bet amount features we see that there are many high leverage (and potential outlier) points in the data. Nearly all the preflop and flop bets are below a bet amount of 60 and nearly all the turn and river bets are below a bet amount of 100-110. For now we visualize the spread of the bet amount features in the ranges of 0-70 bet for the preflop and flop bet amounts, and 0-100 bet for the turn and river bet amounts. 
+All 4 features show modest spread, with the preflop bet amount showing the most. Clearly, the spreads of the bet amounts in the individual stages of betting are lower than the spread we saw with the total bet amount. The preflop and flop bet amount distributions show similar spread, but the average bet amount in the preflop is double the average in the flop. The turn and river bet amount distributions are nearly identical.
 
-All 4 features show modest spread, with the preflop bet amount showing the most. Clearly, the spreads of the bet amounts in the individual stages of betting are lower than the spread we saw with the total bet amount. The preflop and flop bet amount distributions show similar spread, but the average bet amount in the preflop (20) is double the average in the flop (10). The turn and river bet amount distributions are nearly identical.
+###### Relationship to Hand Strength
 
-In the preflop, hand strength mostly seems to increase proportionately with the bet amount range. In the flop, not betting seems to imply a decently below average handstrength whereas betting implies an above average hand strength to some extent. There does not seem to be an obvious trend to changes in hand strength in response to incremental increases in the bet amount range above bets of 0. Bet amounts in the range of 80-100 do seem to imply a significantly above average hand strength, though. In the turn, betting an amount in the range of 0-10 seems to imply a below average handstrength while betting above that range implies an above average hand strength. There does not seem to be an obvious trend to changes in hand strength in response to incremental increases in the bet amount range above bets of 10. In the river, betting 0 seems to imply a slightly below average hand strength whereas betting above 0 seems to imply an average or slightly above average hand strength. 
+In the preflop, we can see a strong positive linear relationship between bet amount and average hand strength up until a bet amount of about 60. There is no clear relationship between preflop bet amount and average hand strength for bets larger than 60. There is a mild relationship between betting in the flop and average hand strength. Average hand strength increases modestly with flop bet amounts up until a size of 30, then average hand strength levels off with bet size until it starts decreasing for flop bets larger than about 40. In the turn and the river, there does not seem to be any relationship between bet amount and average hand strength. 
+
+
+
+
 
 
 Given that prediction (of pocket hand strength) and not inference is the primary goal of our model, we will not concern ourselves with the presence of collinear predictor variables. We merely keep in mind that the predictor coefficient estimates generated by our model may have a degree of uncertainty depending on if some of the predictor variables are correlated. 
-
-The last set of features we generated were ratios of the amount a player bet in a stage of betting to the pot size at the beginning of that stage of betting. Our intuiton was that a given bet amount relative to a smaller pot is more indicative of a strong pocket than the same bet amount relative to a larger pot. 
-
 
 We assume that amateur players typically do not play hands close in hand strength value differently enough such that we could expect to accurately discriminate between say a strength 5 hand and a strength 6 hand on the basis of betting actions. To test this assumption, we look at how some of our features vary between adjacent hand strength values in the lower, middle and upper range of hand strength. 
 
